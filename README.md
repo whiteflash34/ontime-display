@@ -6,6 +6,25 @@ Cuesheet, Countdown and so on) and keeps it on screen.
 
 This is an independent app for Ontime. It is not made by or affiliated with the Ontime project.
 
+![The Timer view of Ontime's demo project on a Fire TV](docs/screenshots/2-timer.png)
+
+## Download
+
+Get the APK from the [latest release](https://github.com/whiteflash34/ontime-display/releases/latest)
+and sideload it (see [Install on a Fire TV](#install-on-a-fire-tv-sideload)).
+
+## Screenshots
+
+| | |
+|---|---|
+| ![First launch: the "Add your Ontime site" screen with an address typed in](docs/screenshots/1-setup.png) | ![Ontime's Backstage view](docs/screenshots/4-backstage.png) |
+| First launch asks for your Ontime address | Any Ontime view, here Backstage |
+| ![Ontime's menu opened with the remote, an item highlighted in orange](docs/screenshots/3-remote-navigation.png) | ![The app's Menu listing three saved sites, the current one ticked](docs/screenshots/5-sites-menu.png) |
+| The remote's arrows move through Ontime's menus | Menu (☰) switches between saved sites |
+
+Screenshots show Ontime's built-in demo project. Icons and banners in several sizes are in
+[`docs/icons`](docs/icons).
+
 ## What it does
 
 - Asks for your Ontime address on first launch, for example `192.168.1.20:4001` or
@@ -98,7 +117,14 @@ the app without touching the code:
 | `versionCode`, `versionName` | Version of your edition. Raise `versionCode` for every update you install. | `1`, `1.0` |
 
 To publish your build, sign it with your own release key and keep that key safe: every update must
-be signed with the same key.
+be signed with the same key. Put the key's details in a `keystore.properties` file (`storeFile`,
+`storePassword`, `keyAlias`, `keyPassword`) next to `settings.gradle`, or anywhere and point to it
+from `~/.gradle/gradle.properties` with `ontimeDisplay.keystore=/path/to/keystore.properties`.
+Never commit it. Then:
+
+```bash
+./gradlew assembleRelease
+```
 
 ## How it works
 

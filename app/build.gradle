@@ -12,6 +12,17 @@ if (editionFile.exists()) {
 def setting = { String key, String fallback -> edition.getProperty(key, fallback).trim() }
 def brandingRes = rootProject.file(setting('brandingRes', 'branding/res'))
 
+// Release signing (optional): a properties file with storeFile, storePassword, keyAlias and
+// keyPassword. Point to it from ~/.gradle/gradle.properties with
+//   ontimeDisplay.keystore=C:/path/to/keystore.properties
+// or put keystore.properties next to settings.gradle (it's git-ignored). Never commit it.
+def keystore = new Properties()
+def keystorePath = project.findProperty('ontimeDisplay.keystore')
+def keystoreFile = keystorePath ? file(keystorePath) : rootProject.file('keystore.properties')
+if (keystoreFile.exists()) {
+    keystoreFile.withReader('UTF-8') { keystore.load(it) }
+}
+
 android {
     namespace 'io.github.whiteflash34.ontimedisplay'
     compileSdk 35
@@ -45,9 +56,23 @@ android {
         }
     }
 
+    signingConfigs {
+        if (keystore.getProperty('storeFile')) {
+            release {
+                storeFile file(keystore.getProperty('storeFile'))
+                storePassword keystore.getProperty('storePassword')
+                keyAlias keystore.getProperty('keyAlias')
+                keyPassword keystore.getProperty('keyPassword')
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            if (keystore.getProperty('storeFile')) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 
