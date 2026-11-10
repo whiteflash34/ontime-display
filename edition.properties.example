@@ -1,0 +1,16 @@
+# Copy to edition.properties to build your own edition. Every line is optional.
+
+# Android app ID. Use a domain you control. A different ID installs as a separate app.
+#applicationId=com.example.ontimedisplay
+
+# Name in the Fire TV launcher
+#appName=Our Show Display
+
+# Sites built in: Name|address;Name|address. With any set, the first-launch prompt is skipped.
+#defaultSites=Stage|http://192.168.1.20:4001/;Foyer|http://192.168.1.21:4001/
+
+# Allow plain http:// (most local Ontime servers need it)
+#allowHttp=true
+
+# Your own banner (drawable-xhdpi/banner.png, 320x180) and icons (mipmap-*/ic_launcher.png)
+#brandingRes=branding/res

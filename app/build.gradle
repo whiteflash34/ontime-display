@@ -1,0 +1,58 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Build your own edition without changing this file: create `edition.properties` next to
+// settings.gradle (see README) to set the app ID, name, built-in sites and branding.
+def edition = new Properties()
+def editionFile = rootProject.file('edition.properties')
+if (editionFile.exists()) {
+    editionFile.withReader('UTF-8') { edition.load(it) }
+}
+def setting = { String key, String fallback -> edition.getProperty(key, fallback).trim() }
+def brandingRes = rootProject.file(setting('brandingRes', 'branding/res'))
+
+android {
+    namespace 'io.github.whiteflash34.ontimedisplay'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId setting('applicationId', 'io.github.whiteflash34.ontimedisplay')
+        // Fire OS 5 (Android 5.1) and up. Very old Fire TVs may have a WebView too old for Ontime.
+        minSdk 22
+        targetSdk 34
+        versionCode 1
+        versionName '1.0'
+
+        resValue 'string', 'app_name', setting('appName', 'Display for Ontime')
+        // Sites saved on first launch: "Name|address;Name|address". Empty = ask on first launch.
+        buildConfigField 'String', 'DEFAULT_SITES',
+                '"' + setting('defaultSites', '').replace('\\', '\\\\').replace('"', '\\"') + '"'
+        // Ontime usually runs on a local network over plain http://, e.g. http://192.168.1.20:4001
+        manifestPlaceholders = [usesCleartextTraffic: setting('allowHttp', 'true')]
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    sourceSets {
+        main {
+            // An edition's own banner and icons replace the default ones.
+            if (brandingRes.exists()) {
+                res.srcDirs = [brandingRes]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
