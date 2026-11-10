@@ -95,6 +95,7 @@ the app without touching the code:
 | `defaultSites` | Sites built in, `Name\|address;Name\|address`. With any set, the app skips the first-launch prompt. | empty |
 | `allowHttp` | Allow plain `http://` (needed for most local Ontime servers) | `true` |
 | `brandingRes` | Folder with your own `drawable-xhdpi/banner.png` (320×180) and `mipmap-*/ic_launcher.png` | `branding/res` |
+| `versionCode`, `versionName` | Version of your edition. Raise `versionCode` for every update you install. | `1`, `1.0` |
 
 To publish your build, sign it with your own release key and keep that key safe: every update must
 be signed with the same key.

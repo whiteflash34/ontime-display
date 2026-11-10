@@ -14,3 +14,7 @@
 
 # Your own banner (drawable-xhdpi/banner.png, 320x180) and icons (mipmap-*/ic_launcher.png)
 #brandingRes=branding/res
+
+# Version of your edition. Raise versionCode for every update you install.
+#versionCode=1
+#versionName=1.0

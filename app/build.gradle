@@ -21,8 +21,8 @@ android {
         // Fire OS 5 (Android 5.1) and up. Very old Fire TVs may have a WebView too old for Ontime.
         minSdk 22
         targetSdk 34
-        versionCode 1
-        versionName '1.0'
+        versionCode setting('versionCode', '1').toInteger()
+        versionName setting('versionName', '1.0')
 
         resValue 'string', 'app_name', setting('appName', 'Display for Ontime')
         // Sites saved on first launch: "Name|address;Name|address". Empty = ask on first launch.
